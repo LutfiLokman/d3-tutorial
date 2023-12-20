@@ -22,7 +22,7 @@ function BarChart() {
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
-    svg.selectAll(".xAxis").remove();
+    svg.selectAll(".axis").remove();
 
     svg
       .attr("width", width + margin.left + margin.right)
@@ -33,12 +33,12 @@ function BarChart() {
     const x = d3.scaleBand().range([0, width]).padding(0.2);
     const xAxis = svg
       .append("g")
-      .attr("class", "xAxis")
+      .attr("class", "axis")
       .attr("transform", `translate(0,${height})`);
 
     // Initialize the Y axis
     const y = d3.scaleLinear().range([height, 0]);
-    const yAxis = svg.append("g").attr("class", "yYaxis");
+    const yAxis = svg.append("g").attr("class", "axis");
 
     function update(data) {
       // Update the X axis
@@ -47,7 +47,7 @@ function BarChart() {
 
       // Update the Y axis
       y.domain([0, d3.max(data, (d) => d.value)]);
-      yAxis.transition().duration(1000).call(d3.axisLeft(y));
+      yAxis.transition().duration(1000).call(d3.axisRight(y));
 
       // Create the bars
       svg
